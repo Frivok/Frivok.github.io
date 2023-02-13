@@ -1,10 +1,15 @@
 var submit = document.getElementById("submit");
 var title = document.getElementById("title");
+var labelTitle = document.getElementById("labeltitle");
 var year = document.getElementById("year");
+var labelYear = document.getElementById("labelyear");
 var result = document.getElementById("result");
 var select = document.getElementById("select");
 var listing = document.querySelector(".listing");
-var series = document.querySelector(".series");
+var serie = document.querySelector(".serie");
+var series = document.getElementById("series");
+var game = document.querySelector("#game");
+var movie = document.querySelector("#movie");
 
 function films(page) {
     
@@ -30,11 +35,21 @@ function films(page) {
         if (xhr.status == 200) {
             var data = JSON.parse(xhr.responseText);
             console.log(data);
-
             result.innerHTML = "";
             pagination.innerHTML = "";
             listing.innerHTML = "";
-            series.innerHTML = "";
+            serie.innerHTML = "";
+
+            if (data.Response == "False") {
+                affichageFilmsProposes(data);
+                affichageSeriesProposes(data);
+                Swal.fire({
+                    title: 'Aucun résultat trouvé',
+                    text: 'Essayez avec un autre titre',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                })
+            }
             var nbPages = Math.floor(data.totalResults / data.Search.length);
 
             if (nbPages > 10) {
@@ -140,7 +155,7 @@ function affichageFilmsProposes() {
     xhr.send();
 }
 
-function seriesProposes() {
+function affichageSeriesProposes() {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "http://www.omdbapi.com/?s=" + "doctor who" + "&type=" + "series" + "&apikey=ec6823f9" ,true);
     xhr.onload = function () {
@@ -148,7 +163,7 @@ function seriesProposes() {
             var data = JSON.parse(xhr.responseText);
             console.log(data);
             var p = document.createElement("p");
-            p.innerHTML = "Notre selection de series";
+            p.innerHTML = "Notre selection de séries";
             listing.appendChild(p);
             for (var i = 0; i < data.Search.length - 4; i++) {
                 var p = document.createElement("p");
@@ -167,7 +182,7 @@ function seriesProposes() {
                 cardBody.setAttribute("class", "card-body");
                 cardBody.setAttribute("style", "background-color: #0f161e;");
 
-                series.appendChild(col4);
+                serie.appendChild(col4);
                 col4.appendChild(card4);
                 card4.appendChild(img);
                 card4.appendChild(cardBody);
@@ -215,13 +230,28 @@ function creerPagination(pages) {
     pagination.appendChild(ulPage);
 }
 
-affichageFilmsProposes();
-seriesProposes();
 submit.addEventListener("click", films);
+game.addEventListener("click", function () {
+    labelTitle.innerHTML = "Titre du jeu";
+    labelYear.innerHTML = "Année de sortie du jeu";
+});
+movie.addEventListener("click", function () {
+    labelTitle.innerHTML = "Titre du film";
+    labelYear.innerHTML = "Année de sortie du film";
+});
+series.addEventListener("click", function () {
+    labelTitle.innerHTML = "Titre de la série";
+    labelYear.innerHTML = "Année de sortie de la série";
+});
 document.addEventListener("keyup", function (event) {
     if (event.keyCode === 13) {
         event.preventDefault();
         submit.click();
     }
 });
+
+affichageFilmsProposes();
+affichageSeriesProposes();
+
+
 
