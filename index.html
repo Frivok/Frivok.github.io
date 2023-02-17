@@ -6,46 +6,56 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Movie Picker</title>
 </head>
 
 <body>
-    <div id="root" class="text-white bg-dark " style="overflow: hidden;">
+
+    <div id="root" class="text-white bg-dark overflow-hidden ">
         <header>
-            <div class="">
-            <a href=""><img src="./img/movie picker.png" alt="Logo du site" class="bg-black"></a>
+            <div class="d-flex justify-content-center font">
+            <a href=""><img src="./img/movie picker2.png" alt="Logo du site" class="bg-black"></a>
             </div>
+            
 </header>
-<main class="container">
-    <div class="text-center container text-white">
-        <h1>Liste de films</h1>
-        <div class="title-input">
-            <label for="title" id="labeltitle">Titre du film</label>
-            <input type="text" id="title" placeholder="Titre">
-            <label for="year" id="labelyear">Année de sortie du film</label>
-            <input type="text" id="year" placeholder="Années">
-            <label for="filter">Filtrer par : </label>
-            <select name="filterMovie" id="select" autocomplete="off" class="btn btn-primary">
+
+<main class="container text-white">
+    <h1 class="text-center mb-5">Recherche de films</h1>
+    <button type="button" id="show-search-btn" class="btn btn-primary mx-auto d-block mb-3">Afficher la recherche de films</button>
+    <form id="search-form" class="d-none">
+        <div class="form-group mb-3">
+            <label for="title" id="labeltitle" class="text-center d-block mb-2">Titre du film :</label>
+            <input type="text" id="title" placeholder="Titre" class="form-control">
+        </div>
+        <div class="form-group mb-3">
+            <label for="year" id="labelyear" class="text-center d-block mb-2">Année de sortie du film : </label>
+            <input type="text" id="year" placeholder="Année" class="form-control">
+        </div>
+        <div class="form-group text-center mb-3">
+            <label for="filter" class="d-block mb-2">Filtrer par :</label>
+            <select name="filterMovie" id="select" autocomplete="off" class="btn btn-primary mx-auto">
                 <option value="movie" id="movie">Films</option>
                 <option value="series" id="series">Séries</option>
                 <option value="game" id="game">Jeux</option>
             </select>
-            <div>
-                <button type="submit" id="submit" class="btn btn-primary m-3">Recherche</button>
-            </div>
-
         </div>
-    </div>
-    <div class="container">
-            <div id="result" class="row">
-            </div>
+    </form>
+    <div class="text-center">
+        <button type="submit" id="submit" class="btn btn-primary d-none mt-3 mb-5">Recherche</button>
     </div>
 </main>
 
 
-<div class="listing row bg-dark">
+
+<div class="container mt-5">
+<div id="result" class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-1 "></div>
 </div>
-<div class="serie row">
+
+
+
+<div class="listing row m-auto"></div>
+<div class="serie row m-auto">
 
 </div>
 
@@ -63,6 +73,7 @@
             integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
         </script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="icon" href="./img/movie picker2 icon.ico" />
 </body>
 
 </html>

@@ -10,6 +10,8 @@ var serie = document.querySelector(".serie");
 var series = document.getElementById("series");
 var game = document.querySelector("#game");
 var movie = document.querySelector("#movie");
+var showSearchBtn = document.getElementById('show-search-btn');
+var searchForm = document.getElementById('search-form');
 
 function films(page) {
     
@@ -21,9 +23,15 @@ function films(page) {
     xhr.open(
         "GET","http://www.omdbapi.com/?s=" + title.value +"&y=" + year.value +"&type=" + select.value +"&apikey=ec6823f9" + "&page=" + page,true
     );
+    console.log(title.value)
 
     if (title.value == "") {
-        alert("Veuillez saisir un titre");
+        Swal.fire({
+            title: 'Veuillez entrer un titre',
+            text: 'Veuillez entrer un titre',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        })
         return false;
     }
 
@@ -55,6 +63,7 @@ function films(page) {
             if (nbPages > 10) {
                 nbPages = 10;
             }
+
             affichage(data);
             creerPagination(nbPages);
         }
@@ -65,22 +74,22 @@ function films(page) {
 function affichage(data) {
     for (var i = 0; i < data.Search.length - 1; i++) {
         var p = document.createElement("p");
-        p.setAttribute("class", "card-text d-flex justify-content-center card-title text-center");
-        p.setAttribute("style", "height: 50px; overflow: hidden;");
+        p.setAttribute("class", "card-text card-title");
+        p.setAttribute("style", "height: 50px; overflow: hidden; font-family: 'Montserrat', sans-serif;");
 
         var small = document.createElement("small");
         small.setAttribute( "class", "d-flex justify-content-center card-text");
         var img = document.createElement("img");
-        img.setAttribute("class", "card-img-top");
-        img.setAttribute("style", "height: 400px;")
+        img.setAttribute("class", "card-img-top img-fluid");
+        img.setAttribute("style", "height: 500px;");
         var col4 = document.createElement("div");
-        col4.setAttribute("class", "col-md-4");
+        col4.setAttribute("class", "col");
         var card4 = document.createElement("div");
-        card4.setAttribute("class", "card mb-4 bg-dark text-white");
+        card4.setAttribute("class", "card mb-4 bg-dark text-white text-center");
+        card4.setAttribute("style", "");
         var cardBody = document.createElement("div");
-        cardBody.setAttribute("class", "card-body");
+        cardBody.setAttribute("class", "card-body text-center");
         cardBody.setAttribute("style", "background-color: #0f161e;");
-
 
         var title = document.createTextNode(data.Search[i].Title);
         var year = document.createTextNode(data.Search[i].Year);
@@ -115,21 +124,22 @@ function affichageFilmsProposes() {
             var p = document.createElement("p");
             p.innerHTML = "Notre selection de films";
             listing.appendChild(p);
-            for (var i = 0; i < data.Search.length - 4; i++) {
+            for (var i = 0; i < data.Search.length -4; i++) {
                 var p = document.createElement("p");
                 p.setAttribute("class", "card-text d-flex justify-content-center card-title");
-                p.setAttribute("style", "height: 50px; overflow: hidden;");
+                p.setAttribute("style", "height: 50px; overflow:; font-family: 'Montserrat', sans-serif;");
                 var small = document.createElement("small");
                 small.setAttribute( "class", " d-flex justify-content-center card-text");
                 var img = document.createElement("img");
-                img.setAttribute("class", "card-img-top");
+                img.setAttribute("class", "card-img-top img-fluid ");
                 img.setAttribute("style", "height: 400px;")
                 var col4 = document.createElement("div");
-                col4.setAttribute("class", "col-md-2");
+                col4.setAttribute("class", "col-md-4 col-lg-2 col-sm-6 col-xs-12");
                 var card4 = document.createElement("div");
                 card4.setAttribute("class", "card mb-5 bg-dark");
+                card4.setAttribute("style", "height: ;");
                 var cardBody = document.createElement("div");
-                cardBody.setAttribute("class", "card-body");
+                cardBody.setAttribute("class", "card-body text-center");
                 cardBody.setAttribute("style", "background-color: #0f161e;");
 
                 listing.appendChild(col4);
@@ -168,18 +178,19 @@ function affichageSeriesProposes() {
             for (var i = 0; i < data.Search.length - 4; i++) {
                 var p = document.createElement("p");
                 p.setAttribute("class", "card-text d-flex justify-content-center card-title");
-                p.setAttribute("style", "height: 50px; overflow: hidden;");
+                p.setAttribute("style", "height: 50px; overflow: hidden; font-family: 'Montserrat', sans-serif;");
                 var small = document.createElement("small");
                 small.setAttribute( "class", "d-flex justify-content-center card-text text-center text-white");
                 var img = document.createElement("img");
-                img.setAttribute("class", "card-img-top");
-                img.setAttribute("style", "height: 400px;")
+                // make the image lower height in mobile version
+                img.setAttribute("class", "card-img-top img-fluid");
+                img.setAttribute("style", "height: 400px; ");
                 var col4 = document.createElement("div");
-                col4.setAttribute("class", "col-md-2");
+                col4.setAttribute("class", "col-md-4 col-lg-2 col-sm-6 col-xs-12");
                 var card4 = document.createElement("div");
                 card4.setAttribute("class", "card mb-5 bg-dark");
                 var cardBody = document.createElement("div");
-                cardBody.setAttribute("class", "card-body");
+                cardBody.setAttribute("class", "card-body text-center");
                 cardBody.setAttribute("style", "background-color: #0f161e;");
 
                 serie.appendChild(col4);
@@ -198,6 +209,7 @@ function affichageSeriesProposes() {
                     img.setAttribute("src", data.Search[i].Poster);
                 }
 
+
                 p.appendChild(title);
                 small.appendChild(year);
         }}
@@ -209,6 +221,7 @@ function creerPagination(pages) {
     let pagination = document.querySelector("#pagination");
     let ulPage = document.createElement("ul");
     ulPage.setAttribute("class", "pagination");
+
 
     for (let i = 1; i <= pages; i++) {
         let liPage = document.createElement("li");
@@ -230,25 +243,38 @@ function creerPagination(pages) {
     pagination.appendChild(ulPage);
 }
 
+showSearchBtn.addEventListener("click", function () {
+    searchForm.classList.toggle("d-none");
+    submit.classList.toggle("d-none");
+});
+
 submit.addEventListener("click", films);
+submit.addEventListener("click", function () {
+    searchForm.classList.toggle("d-none");
+    submit.classList.toggle("d-none");
+});
+
 game.addEventListener("click", function () {
-    labelTitle.innerHTML = "Titre du jeu";
-    labelYear.innerHTML = "Année de sortie du jeu";
+    labelTitle.innerHTML = "Titre du jeu :";
+    labelYear.innerHTML = "Année de sortie du jeu :";
 });
 movie.addEventListener("click", function () {
-    labelTitle.innerHTML = "Titre du film";
-    labelYear.innerHTML = "Année de sortie du film";
+    labelTitle.innerHTML = "Titre du film :";
+    labelYear.innerHTML = "Année de sortie du film :";
 });
 series.addEventListener("click", function () {
-    labelTitle.innerHTML = "Titre de la série";
-    labelYear.innerHTML = "Année de sortie de la série";
+    labelTitle.innerHTML = "Titre de la série :";
+    labelYear.innerHTML = "Année de sortie de la série :";
 });
+
 document.addEventListener("keyup", function (event) {
     if (event.keyCode === 13) {
         event.preventDefault();
         submit.click();
     }
 });
+
+
 
 affichageFilmsProposes();
 affichageSeriesProposes();
