@@ -8,3 +8,23 @@ footer, main, p {
     font-family: 'Roboto', sans-serif;
 }
 
+.card-img-top.img-fluid {
+    width: 100%;
+    height: 15vw;
+}
+
+@media screen and (max-width: 768px) {
+    .card-img-top.img-fluid {
+        width: 100%;
+        height: 50vw;
+        object-fit: fill;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .card-text {
+        font-size: 0.7rem;
+    }
+}
+
+

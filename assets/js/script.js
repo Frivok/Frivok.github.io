@@ -81,7 +81,6 @@ function affichage(data) {
         small.setAttribute( "class", "d-flex justify-content-center card-text");
         var img = document.createElement("img");
         img.setAttribute("class", "card-img-top img-fluid");
-        img.setAttribute("style", "height: 500px;");
         var col4 = document.createElement("div");
         col4.setAttribute("class", "col");
         var card4 = document.createElement("div");
@@ -132,7 +131,6 @@ function affichageFilmsProposes() {
                 small.setAttribute( "class", " d-flex justify-content-center card-text");
                 var img = document.createElement("img");
                 img.setAttribute("class", "card-img-top img-fluid ");
-                img.setAttribute("style", "height: 400px;")
                 var col4 = document.createElement("div");
                 col4.setAttribute("class", "col-md-4 col-lg-2 col-sm-6 col-xs-12");
                 var card4 = document.createElement("div");
@@ -182,9 +180,7 @@ function affichageSeriesProposes() {
                 var small = document.createElement("small");
                 small.setAttribute( "class", "d-flex justify-content-center card-text text-center text-white");
                 var img = document.createElement("img");
-                // make the image lower height in mobile version
                 img.setAttribute("class", "card-img-top img-fluid");
-                img.setAttribute("style", "height: 400px; ");
                 var col4 = document.createElement("div");
                 col4.setAttribute("class", "col-md-4 col-lg-2 col-sm-6 col-xs-12");
                 var card4 = document.createElement("div");
@@ -234,6 +230,7 @@ function creerPagination(pages) {
         aPage.addEventListener("click", function (e) {
             e.preventDefault();
             films(this.getAttribute("href"));
+            document.location = "#";
         });
 
         liPage.appendChild(aPage);
