@@ -10,20 +10,27 @@ footer, main, p {
 
 .card-img-top.img-fluid {
     width: 100%;
-    height: 15vw;
+    height: 20vw;
 }
 
 @media screen and (max-width: 768px) {
     .card-img-top.img-fluid {
         width: 100%;
-        height: 50vw;
+        height: 70vw;
         object-fit: fill;
     }
 }
 
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    .card-img-top.img-fluid {
+        width: 100%;
+        height: 60vw;
+        object-fit: fill;
+    }
+}
 @media screen and (max-width: 1200px) {
     .card-text {
-        font-size: 0.7rem;
+        font-size: 1rem;
     }
 }
 
